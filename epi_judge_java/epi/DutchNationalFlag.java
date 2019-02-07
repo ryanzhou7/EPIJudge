@@ -4,20 +4,15 @@ import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 public class DutchNationalFlag {
   public enum Color { RED, WHITE, BLUE }
 
-  public static void swap(List<Color> A, int i, int j){
-    Color temp = A.get(i);
-    A.set(i, A.get(j));
-    A.set(j, temp);
-  }
-
   public static void dutchFlagPartition(int pivotIndex, List<Color> A) {
     Color pivotColor = A.get(pivotIndex);
     int currentIndex = 0;
-    swap(A, pivotIndex, currentIndex++);
+    Collections.swap(A, pivotIndex, currentIndex++);
     int pivotStart = 0;
     int pivotEnd = 0;
     int lastColorStartExclusive = A.size()-1;
@@ -28,11 +23,11 @@ public class DutchNationalFlag {
         ++currentIndex;
       }
       else if(current.ordinal()<pivotColor.ordinal()){
-        swap(A, currentIndex++, pivotStart++);
+        Collections.swap(A, currentIndex++, pivotStart++);
         ++pivotEnd;
       }
       else{
-        swap(A, currentIndex, lastColorStartExclusive--);
+        Collections.swap(A, currentIndex, lastColorStartExclusive--);
       }
     }
     return;
