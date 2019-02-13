@@ -9,53 +9,50 @@ public class SpiralOrderingSegments {
 
   public static List<Integer> matrixInSpiralOrder(List<List<Integer>> squareMatrix) {
     List<Integer> list = new ArrayList<>();
-    if(squareMatrix.size()==0)
-      return list;
-    if(squareMatrix.size()==1) {
-      list.add(squareMatrix.get(0).get(0));
+    int c = 0;
+    int r = 0;
+    List<List<Integer>> A = squareMatrix;
+    if(A.size()==1) {
+      list.add(A.get(0).get(0));
       return list;
     }
-    int cRow = 0;
-    int cCol = 0;
-    int rightCol = squareMatrix.get(0).size();
-    int rightRow = squareMatrix.get(0).size();
-    int leftCol = 0;
-    int leftRow = 1;
-    while (true){
-      //RIGHT
-      while(cCol!=rightCol){
-        list.add(squareMatrix.get(cRow).get(cCol++));
+    else if(A.size()==0)
+      return list;
+    int LR = A.get(0).size()-1;
+    //LR = exclusive index to add when going from left to right
+
+    int UD = A.size()-1;
+    //UD = Up to down
+
+    int RL = 0;
+    int DU = 1;
+    int total = A.size()*A.get(0).size();
+    while(true){
+      while (c!=LR){
+        list.add(A.get(r).get(c++));
       }
-      cCol--;
-      rightCol--;
-      if(cRow+1>=rightRow)
+      --LR;
+      if(list.size()+1==total){
+        list.add(A.get(r).get(c));
         break;
-      cRow++;
-      //DOWN
-      while(cRow!=rightRow){
-        list.add(squareMatrix.get(cRow++).get(cCol));
       }
-      cRow--;
-      rightRow--;
-      cCol--;
-      //LEFT
-      while (cCol!=leftCol){
-        list.add(squareMatrix.get(cRow).get(cCol--));
+      while (r!=UD){
+        list.add(A.get(r++).get(c));
       }
-      cCol++;
-      leftCol++;
-      if(cRow-1<=leftRow)
+      --UD;
+      while (c!=RL){
+        list.add(A.get(r).get(c--));
+      }
+      ++RL;
+      if(list.size()+1==total){
+        list.add(A.get(r).get(c));
         break;
-      cRow--;
-      //UP
-      while(cRow!=leftRow){
-        list.add(squareMatrix.get(cRow--).get(cCol));
       }
-      cCol++;
-      cRow++;
-      leftRow--;
+      while (r!=DU){
+        list.add(A.get(r--).get(c));
+      }
+      ++DU;
     }
-    list.add(squareMatrix.get(cRow).get(--cCol));
     return list;
   }
 

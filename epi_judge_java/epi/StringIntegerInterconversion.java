@@ -30,7 +30,7 @@ public class StringIntegerInterconversion {
     int base = 1;
     for(int i = s.length()-1; i>=0; i--){
       char c = s.charAt(i);
-      int temp = (int)(c-'0');
+      int temp = (c-'0');
       num += (temp*base);
       base *= 10;
     }
@@ -46,25 +46,6 @@ public class StringIntegerInterconversion {
     if (stringToInt(s) != x) {
       throw new TestFailure("String to int conversion failed");
     }
-  }
-
-  public static int indexOfDifference(String str1, String str2) {
-    if (str1 == str2) {
-      return -1;
-    }
-    if (str1 == null || str2 == null) {
-      return 0;
-    }
-    int i;
-    for (i = 0; i < str1.length() && i < str2.length(); ++i) {
-      if (str1.charAt(i) != str2.charAt(i)) {
-        break;
-      }
-    }
-    if (i < str2.length() || i < str1.length()) {
-      return i;
-    }
-    return -1;
   }
 
   public static void main(String[] args) {
