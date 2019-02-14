@@ -7,8 +7,26 @@ import java.util.List;
 public class ReplaceAndRemove {
 
   public static int replaceAndRemove(int size, char[] s) {
-    // TODO - you fill in here.
-    return 0;
+    int i = s.length-1;
+    for(int j = size-1; j>=0; --j){
+      char c = s[j];
+      if(c=='a'){
+        s[i--] = 'd';
+        s[i--] = 'd';
+      }
+      else if(c!='b'){
+        s[i--] = s[j];
+      }
+    }
+    ++i;
+    int indexOfLastE = s.length-i;
+    for(int k = 0; k<indexOfLastE; ++k){
+      s[k] = s[i++];
+    }
+    for(int k = indexOfLastE; k<s.length; ++k){
+      s[k] = ' ';
+    }
+    return indexOfLastE;
   }
   @EpiTest(testDataFile = "replace_and_remove.tsv")
   public static List<String>
