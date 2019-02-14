@@ -11,20 +11,21 @@ public class ReplaceAndRemove {
     for(int j = size-1; j>=0; --j){
       char c = s[j];
       if(c=='a'){
+        s[j] = ' ';
         s[i--] = 'd';
         s[i--] = 'd';
       }
       else if(c!='b'){
-        s[i--] = s[j];
+        char temp = s[j];
+        s[j] = ' ';
+        s[i--] = temp;
       }
+
     }
     ++i;
     int indexOfLastE = s.length-i;
     for(int k = 0; k<indexOfLastE; ++k){
       s[k] = s[i++];
-    }
-    for(int k = indexOfLastE; k<s.length; ++k){
-      s[k] = ' ';
     }
     return indexOfLastE;
   }
