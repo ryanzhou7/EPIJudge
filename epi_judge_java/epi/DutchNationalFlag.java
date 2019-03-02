@@ -16,7 +16,7 @@ public class DutchNationalFlag {
     int pivotStart = 0;
     int pivotEnd = 0;
     int lastColorStartExclusive = A.size()-1;
-    while(currentIndex<=lastColorStartExclusive){
+    while(pivotEnd!=lastColorStartExclusive){
       Color current = A.get(currentIndex);
       if(current==pivotColor){
         ++pivotEnd;
