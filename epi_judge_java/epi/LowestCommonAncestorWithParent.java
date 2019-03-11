@@ -6,6 +6,15 @@ import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
 public class LowestCommonAncestorWithParent {
 
+  public static class LinkedNode<T>{
+    public LinkedNode<T> prev = null;
+    public T curr;
+    public int depth;
+    LinkedNode(int d){
+      this.depth = d;
+    }
+  }
+
   public static BinaryTree<Integer> LCA(BinaryTree<Integer> node0,
                                         BinaryTree<Integer> node1) {
     // TODO - you fill in here.
