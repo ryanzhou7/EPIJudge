@@ -3,28 +3,65 @@ import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
+
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 public class StackWithMax {
 
   public static class Stack {
+    public static class Freq{
+      int c;
+      Integer data;
+      Freq(int c, Integer data){
+        this.c = c;
+        this.data = data;
+      }
+    }
+
+    Deque<Integer> data = new LinkedList<>();
+    Deque<Freq> max = new LinkedList<>();
     public boolean empty() {
-      // TODO - you fill in here.
-      return true;
+      return data.size()==0;
     }
     public Integer max() {
-      // TODO - you fill in here.
-      return 0;
+      return max.peekLast().data;
     }
     public Integer pop() {
-      // TODO - you fill in here.
-      return 0;
+      if(empty()){
+        throw new IllegalStateException("pop(): empty stack");
+      }
+      Integer val = data.removeLast();
+      Freq f = max.peekLast();
+      if(val.compareTo(f.data)==0){
+        if(f.c>1){
+          max.removeLast();
+          max.addLast(new Freq(f.c-1, f.data));
+        }
+        else{
+          max.removeLast();
+        }
+      }
+      return val;
     }
     public void push(Integer x) {
-      // TODO - you fill in here.
-      return;
+      data.addLast(x);
+      if(!max.isEmpty()) {
+        Freq f = max.peekLast();
+        if (x > f.data) {
+          max.addLast(new Freq(1, x));
+        } else if (x.compareTo(f.data)==0) {
+          max.removeLast();
+          max.addLast(new Freq(f.c + 1, x));
+        }
+      }
+      else{
+        max.addLast(new Freq(1, x));
+      }
     }
   }
+
   @EpiUserType(ctorParams = {String.class, int.class})
   public static class StackOp {
     public String op;
