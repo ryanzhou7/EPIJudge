@@ -13,20 +13,17 @@ public class IsTreeBalanced {
   }
 
   public static int getH(BinaryTreeNode<Integer> tree, int height){
-    if(tree!=null){
-      int leftH = getH(tree.left, height+1);
-      if(leftH == -1)
-        return -1;
-      int rightH = getH(tree.right, height+1);
-      if(rightH == -1)
-        return -1;
-      if(Math.abs(leftH-rightH)>1)
-        return -1;
-      else{
-        return Math.max(leftH, rightH);
-      }
-    }
-    return height-1;
+    if(tree==null)
+      return height-1;
+    int leftH = getH(tree.left, height+1);
+    if(leftH==-1)
+      return -1;
+    int rightH = getH(tree.right, height+1);
+    if(rightH==-1)
+      return -1;
+    if(Math.abs(leftH-rightH)>1)
+      return -1;
+    return Math.max(leftH, rightH);
   }
   public static void main(String[] args) {
     System.exit(
