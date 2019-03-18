@@ -4,9 +4,8 @@ import epi.test_framework.EpiTestComparator;
 import epi.test_framework.EpiTestExpectedType;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+
+import java.util.*;
 import java.util.function.BiPredicate;
 public class KClosestStars {
   @EpiUserType(ctorParams = {double.class, double.class, double.class})
@@ -34,8 +33,32 @@ public class KClosestStars {
   }
 
   public static List<Star> findClosestKStars(Iterator<Star> stars, int k) {
-    // TODO - you fill in here.
-    return Collections.emptyList();
+    PriorityQueue<Star> star_queue = new PriorityQueue<>(Comparator.reverseOrder());
+    List<Star> kStarList = new LinkedList<>();
+    Iterator<Star> starCollection = stars;
+    while(starCollection.hasNext())
+    {
+      Star curr_star = starCollection.next();
+      if (star_queue.size() == k)
+      {
+        if (curr_star.compareTo(star_queue.peek())<0)
+        {
+          star_queue.poll();
+          star_queue.add(curr_star);
+        }
+      }
+      else
+      {
+        star_queue.add(curr_star);
+      }
+    }
+
+    while(!star_queue.isEmpty())
+    {
+      kStarList.add(star_queue.poll());
+    }
+    return kStarList;
+    //return Collections.emptyList();
   }
   @EpiTest(testDataFile = "k_closest_stars.tsv")
   public static List<Star> findClosestKStarsWrapper(List<Star> stars, int k) {
