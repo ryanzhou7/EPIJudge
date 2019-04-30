@@ -5,7 +5,6 @@ public class IntSquareRoot {
   @EpiTest(testDataFile = "int_square_root.tsv")
 
   public static int squareRoot(int k) {
-    // TODO - you fill in here.
     return 0;
   }
 
